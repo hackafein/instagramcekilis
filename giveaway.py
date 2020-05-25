@@ -98,7 +98,7 @@ class Giveaway:
             '//*[@id="react-root"]/section/main/div[1]/div').find_elements_by_tag_name('a'))
         while True:
             self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-            time.sleep(0.1*(random.randint(1, 5)))
+            
             new = len(self.driver.find_element_by_xpath(
                 '//*[@id="react-root"]/section/main/div[1]/div').find_elements_by_tag_name('a'))
             if new == current:
@@ -130,7 +130,7 @@ class Giveaway:
         random.shuffle(people)
         for number in range(1, number_of_winners + 1):
             print(f'Kazanan numara {number} yani {people.pop()}')
-            time.sleep(0.5)
+            time.sleep(0.1)
 
 
     def send_winners(self,LOGIN,PASSWORD,POSTLINK,MAX_LIMIT):
