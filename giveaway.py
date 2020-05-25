@@ -93,7 +93,7 @@ class Giveaway:
         link_to_likes = self.driver.find_element_by_xpath(
             '//*[@id="react-root"]/section/main/div/div/article/div[2]/section[2]/div/div/a')
         link_to_likes.click()
-        time.sleep(0.5)
+        time.sleep(0.9)
         current = len(self.driver.find_element_by_xpath(
             '//*[@id="react-root"]/section/main/div[1]/div').find_elements_by_tag_name('a'))
         while True:
