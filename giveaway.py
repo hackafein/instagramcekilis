@@ -98,7 +98,7 @@ class Giveaway:
             '//*[@id="react-root"]/section/main/div[1]/div').find_elements_by_tag_name('a'))
         while True:
             self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-            time.sleep(random.randint(1, 2))
+            time.sleep(0.1*(random.randint(1, 5)))
             new = len(self.driver.find_element_by_xpath(
                 '//*[@id="react-root"]/section/main/div[1]/div').find_elements_by_tag_name('a'))
             if new == current:
