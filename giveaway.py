@@ -149,7 +149,7 @@ class Giveaway:
         print(f" {len(people_to_chose)} Kullanıcı arasından...")
         
         print(f"Kazananlar seçiliyor...")
-        ig.pick_winners(people_to_chose, 4)
+        ig.pick_winners(people_to_chose, MAX_LIMIT)
         print('Tebrikler!')
         ig.close_browser()
         self.people_to_send=people_to_chose
