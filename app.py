@@ -56,7 +56,9 @@ def search():
             postlink= request.form.get("postlink")
             max_limit = int(request.form.get("searching_limit"))
 
-            winners=Giveaway().send_winners(user,password,postlink,max_limit)
+            give_away_people = ['@jakobowsky', '@someone']
+            winners=Giveaway(user,password,give_away_people).send_winners(user,password,postlink,max_limit)
+           
             return render_template("cekilis.html", winners=winners)
 
 
