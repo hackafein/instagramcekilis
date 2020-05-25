@@ -30,27 +30,27 @@ class Giveaway:
     def login(self):
         driver = self.driver
         driver.get("https://www.instagram.com/accounts/login/")
-        time.sleep(2)
+        time.sleep(0.5)
         element = driver.find_element_by_name('username')
         element.send_keys(self.username)
         element = driver.find_element_by_name('password')
         element.send_keys(self.password)
-        time.sleep(2)
+        time.sleep(0.5)
         element.submit()
-        time.sleep(5)
+        time.sleep(0.5)
 
     def close_browser(self):
         self.driver.close()
 
     def get_comments(self):
         self.driver.get('https://www.instagram.com/p/B4NssH8iVmJ/comments/')
-        time.sleep(1)
+        time.sleep(0.5)
         while True:
             try:
                 button = self.driver.find_element_by_xpath('//*[@id="react-root"]/section/main/div/ul/li/div/button')
                 button.click()
 
-                time.sleep(1)
+                time.sleep(0.5)
             except Exception:
                 print("Bütün Yorumlar Çekildi!")
                 break
@@ -93,7 +93,7 @@ class Giveaway:
         link_to_likes = self.driver.find_element_by_xpath(
             '//*[@id="react-root"]/section/main/div/div/article/div[2]/section[2]/div/div/a')
         link_to_likes.click()
-        time.sleep(2)
+        time.sleep(0.5)
         current = len(self.driver.find_element_by_xpath(
             '//*[@id="react-root"]/section/main/div[1]/div').find_elements_by_tag_name('a'))
         while True:
@@ -130,7 +130,7 @@ class Giveaway:
         random.shuffle(people)
         for number in range(1, number_of_winners + 1):
             print(f'Kazanan numara {number} yani {people.pop()}')
-            time.sleep(1)
+            time.sleep(0.5)
 
 
     def send_winners(self,LOGIN,PASSWORD,POSTLINK,MAX_LIMIT):
@@ -140,14 +140,14 @@ class Giveaway:
         ig.login()
         print("İki arkadaşını etiketliyenler seçiliyor...")
         people_who_commented = ig.get_comments()
-        time.sleep(1)
+        time.sleep(0.5)
 
         print('Postu beğenenler Seçiliyor...')
         people_who_liked = ig.get_people_who_liked()
-        time.sleep(1)
+        time.sleep(0.5)
         people_to_chose = ig.check_if_liked(people_who_commented, people_who_liked)
         print(f" {len(people_to_chose)} Kullanıcı arasından...")
-        time.sleep(1)
+        time.sleep(0.5)
         print(f"Kazananlar seçiliyor...")
         ig.pick_winners(people_to_chose, 4)
         print('Tebrikler!')
