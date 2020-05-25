@@ -12,8 +12,8 @@ class Giveaway:
         self.give_away_people = give_away_people
         self.username = username
         self.password = password
-        executable_path = os.environ.get("CHROMEDRIVER_PATH")
-        self.path = executable_path
+
+        self.path = "executable_path"
 
         mobile_emulation = {
             "deviceMetrics": {"width": 360, "height": 640, "pixelRatio": 3.0},
