@@ -53,11 +53,10 @@
   var mycount = 1;
   var myData = {};
   var testc = 1;
-  var kisiler=256256;
+
 		
 	$(document).ready(function() {
 		
-		alert("kisiler");
   namespace = '/kazananlar';
 	  var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + namespace);    
 	  socket.on('connect', function() {
@@ -70,7 +69,8 @@
 		  document.getElementById("demo").innerHTML = kisiler;
 		  var kisiler = msg.kisiler;
 		  
-		  
+		  alert(kisiler);
+		
 		  
 		  });
    });
