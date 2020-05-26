@@ -11,6 +11,8 @@ from os import environ
 import sys
 import urllib
 from flask import Flask, redirect, render_template, request, url_for,flash
+app = Flask(__name__)
+app.config['SECRET_KEY'] = 'secret!'
 import json
 import os, time, random
 from giveaway import Giveaway
