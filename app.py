@@ -14,7 +14,11 @@ from flask import Flask, redirect, render_template, request, url_for,flash
 import json
 import os, time, random
 from giveaway import Giveaway
-
+from flask_socketio import SocketIO, emit
+import json
+async_mode = None
+socketio = SocketIO(app, async_mode=async_mode)
+thread = None
 
 
 app = Flask(__name__)
@@ -28,6 +32,36 @@ from random import randint
 ##################################################################################################################
 #--------------------DECODE--------------------------------------------------------------------------------------#
 ##################################################################################################################
+
+
+def background_thread():
+    kisiler = 0
+
+    socketio.sleep(2)
+
+
+    (kisiler) =Giveaway(user,password,give_away_people).send_winners(user,password,postlink,max_limit)
+
+    socketio.emit('my_response',
+    {'data': 'Values', 'kisiler': kisiler},
+    namespace='/kazananlar')
+
+
+
+
+@socketio.on('connect', namespace='/kazananlar')
+def test_connect():
+    global thread
+    if thread is None:
+        thread = socketio.start_background_task(target=background_thread)
+
+def messageReceived(methods=['GET', 'POST']):
+    print('message was received!!!')
+
+
+
+
+
 
 @app.route("/")
 def index():
@@ -56,10 +90,13 @@ def search():
             postlink= request.form.get("postlink")
             max_limit = int(request.form.get("searching_limit"))
             give_away_people = ['@jakobowsky', '@someone']
+            templateData = {
+                'mesg': mesg,
+                'speed': speed
+            }
 
-
-            winners=Giveaway(user,password,give_away_people).send_winners(user,password,postlink,max_limit)
-            return render_template("cekilis.html", winners=winners)
+            winners=["Çekiliş yapılıyor..."]
+            return render_template("cekilis.html", async_mode=socketio.async_mode, **templateData, winners=winners)
 
 
 if __name__ == '__main__':
@@ -69,7 +106,8 @@ if __name__ == '__main__':
     except ValueError:
         PORT = 80
     #Sinif().sinif()
-    app.run(HOST, PORT)
+    #app.run(HOST, PORT)
+    socketio.run(app, debug=True)
 
 
 
