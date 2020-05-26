@@ -92,6 +92,8 @@ def search():
             postlink= request.form.get("postlink")
             max_limit = int(request.form.get("searching_limit"))
             give_away_people = ['@jakobowsky', '@someone']
+            mesg = 'we are here...'
+            speed = randint(0, 133)
             templateData = {
                 'mesg': mesg,
                 'speed': speed
