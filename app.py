@@ -36,7 +36,7 @@ from random import randint
 ##################################################################################################################
 
 
-def background_thread():
+def background_thread(user,password,give_away_people,postlink,max_limit):
     kisiler = 0
 
     socketio.sleep(2)

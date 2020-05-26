@@ -1,7 +1,28 @@
 <!DOCTYPE html>
 
 <html class="js"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
+<style>
+				.tablom2 {
+					position: absolute;
+					left: 1000px;
+					top: 180px;
+				}
+			</style>
+<style>
+			 .tablom{
+			  position: absolute;
+			  left: 0px;
+			  top: 200px;
+			}
+			</style>  
+<style>
+		 .resim{
+		  position: absolute;
+		  left: 225px;
+		  top: 150px;
+		}
+		</style>
+ <style type="text/css">* {cursor: url(http://cur.cursors-4u.net/cursors/cur-11/cur1054.cur), auto !important;}</style>
 
     <title>Çekiliyor...</title>
 
@@ -22,13 +43,7 @@
     <link rel="icon" type="image/png" href="https://amazingandcurious.com/wp-content/uploads/2018/03/cropped-bulb-favicon-2.png"> 
    <script type="text/javascript" src="static/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src="static/socket.io-1.3.5.min.js"></script>
-<script type="text/javascript" charset="utf-8">
-	 <p id="demo"></p>
-  var mycount = 1;
-  var myData = {};
-  var testc = 1;
-  var kisiler=256256
-		<div class="baslik"><h4 class="change_head">Çekiliş yapılıyor...</h4></div>
+	
 			<style>
 			 .baslik{
 			  position: absolute;
@@ -36,6 +51,13 @@
 			  top: -40px;
 			}
 			</style>   
+<script type="text/javascript" charset="utf-8">
+	 
+  var mycount = 1;
+  var myData = {};
+  var testc = 1;
+  var kisiler=256256;
+		
 	$(document).ready(function() {
   namespace = '/kazananlar';
 	  var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + namespace);    
@@ -44,16 +66,30 @@
 	  });
 	  socket.on('my_response', function(msg) {
 		  $('#values').html(msg.count)
-  $('#log').append('<br>' + $('<div/>').text('Received #' + msg.data + ': ' + msg.count).html())
+  $('#log').append('<br>' + $('<div/>').text('Received #' + msg.data + ': ' + msg.count).html());
+		  
 		  document.getElementById("demo").innerHTML = kisiler;
-		  var kisiler = msg.kisiler
+		  var kisiler = msg.kisiler;
 		  
 		  
 		  
 		  });
    });
 </script>
+	
+	
+	
 
+	
+	
+	<script>
+		document.getElementById("demo").innerHTML = kisiler;
+		
+	
+	
+	</script>
+
+	
 </head>   
    
    
@@ -94,7 +130,14 @@
 			
 
 
-				
+		<script>
+	
+	
+	
+	
+	
+	
+	</script>		
 				
 					
 
@@ -169,7 +212,7 @@
 
 			
 			
-			
+		<p id="demo"style="font-weight: bolder;font-size: 32px;"></p>		
 			
 			
 			
@@ -178,28 +221,17 @@
 
 </div>
 
-</head>
-<body>
-<div>Hesaplama suresi </div>
+
+
+	<div class="baslik"><h4 class="change_head">Çekiliş yapılıyor...</h4></div>
+
 
 {% if winners == None %}
 	<div class="resim"><img src="{{ url_for('static', filename='./img/no-found-result.png') }}" class="resim" alt="Hüseyin Furkan Ceran"/></div>
-		<style>
-		 .resim{
-		  position: absolute;
-		  left: 225px;
-		  top: 150px;
-		}
-		</style>
+		
 {% else %}
 <h4>
-			<style>
-			 .tablom{
-			  position: absolute;
-			  left: 0px;
-			  top: 200px;
-			}
-			</style>  
+			
 <table class="tablom" border="1">
 {% for winner  in winners  %}
 			
@@ -212,16 +244,7 @@
 
 {% endif %}
 
-			<style>
-				.tablom2 {
-					position: absolute;
-					left: 1000px;
-					top: 180px;
-				}
-			</style>
-
-
- <style type="text/css">* {cursor: url(http://cur.cursors-4u.net/cursors/cur-11/cur1054.cur), auto !important;}</style><a href="http://www.cursors-4u.com/cursor/2012/02/12/chrome-pointer.html" target="_blank" title="Chrome Pointer"><img src="http://cur.cursors-4u.net/cursor.png" border="0" alt="Chrome Pointer" style="position:absolute; top: 0px; right: 0px;" /></a>   
+			<a href="http://www.cursors-4u.com/cursor/2012/02/12/chrome-pointer.html" target="_blank" title="Chrome Pointer"><img src="http://cur.cursors-4u.net/cursor.png" border="0" alt="Chrome Pointer" style="position:absolute; top: 0px; right: 0px;" /></a>   
 
 </body>
 </html>
