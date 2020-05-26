@@ -47,6 +47,7 @@ def background_thread():
     socketio.emit('my_response',
     {'data': 'Values', 'kisiler': kisiler},
     namespace='/kazananlar')
+    json.dumps(kisiler)
 
 
 
