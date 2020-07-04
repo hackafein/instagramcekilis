@@ -1,119 +1,68 @@
 
-
-"""
-CoDeR= Hüseyin Furkan Ceran
-"""
-#-------iMPORTLAR---------------------------------------------------------------------------------------------------
 import time
 import os
 import random
 from os import environ
 import sys
 import urllib
-from flask import Flask, redirect, render_template, request, url_for,flash
-app = Flask(__name__)
-app.config['SECRET_KEY'] = 'secret!'
+from flask import Flask, redirect, render_template, request, url_for,flash, send_file, send_from_directory, safe_join, abort, jsonify
 import json
-import os, time, random
-from giveaway import Giveaway
-from flask_socketio import SocketIO, emit
-import json
-async_mode = None
-socketio = SocketIO(app, async_mode=async_mode)
-thread = None
-
-
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'secret!'
+app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 import requests		
 from random import randint
-
-
-
-
-##################################################################################################################
-#--------------------DECODE--------------------------------------------------------------------------------------#
-##################################################################################################################
-
-
-def background_thread(user,password,give_away_people,postlink,max_limit):
-    kisiler = 0
-
-    socketio.sleep(2)
-
-
-    (kisiler) =Giveaway(user,password,give_away_people).send_winners(user,password,postlink,max_limit)
-
-    socketio.emit('my_response',
-    {'data': 'Values', 'kisiler': kisiler},
-    namespace='/kazananlar')
-    json.dumps(kisiler)
-
-
-
-
-@socketio.on('connect', namespace='/kazananlar')
-def test_connect():
-    global thread
-    if thread is None:
-        thread = socketio.start_background_task(target=background_thread)
-
-def messageReceived(methods=['GET', 'POST']):
-    print('message was received!!!')
-
-
-
-
-
+global longitude,latitude
+longitude=0
+latitude=0
 
 @app.route("/")
 def index():
+
     return render_template("index.html")
-def about():
-        return render_template("about.html")
-@app.route("/exit", methods=['GET', 'POST'])
-def exit():
-        return render_template("index.html")
+
+@app.route("/menu", methods = ["GET", "POST"])
+def menu():
+    if request.method == "POST":	
+        if request.form["action"] == "ceran":  
+
+            if latitude==str(37.8817789) and longitude==str(32.505438):
+                return render_template("shop.html")
+            else:
+                flash('Ceran Burger Lokasyonunda bulunamadığınız için Sisteme giriş yapamıyorsunuz')
+                return redirect(url_for('index'))
 
 
-@app.errorhandler(404)
-def page_not_found(e):
-    return render_template('404.html'), 404
-@app.errorhandler(500)
-def server_error(e):
-	return render_template('404.html'), 500
+
+@app.route('/_get_post_json/', methods=['POST','GET'])
+def get_post_json():  
+    if request.method == 'POST':
+        data = request.get_json()
+        datam=data.split("<br>")
+        global longitude,latitude
+        latitude=(datam[0])
+        longitude=(datam[1])
+
+        if latitude==str(37.8817789) and longitude==str(32.505438):
+            print("Welcome Home Captain")
+
+        return jsonify(status="success", data=data)
 
 
-@app.route("/cekilis", methods=["GET", "POST"])
-def search():
-    if request.method == "POST":
-        if request.form["action"] == "giveaway":
-            user = request.form.get("user")
-            password = request.form.get("pass")
-            postlink= request.form.get("postlink")
-            max_limit = int(request.form.get("searching_limit"))
-            give_away_people = ['@jakobowsky', '@someone']
-            mesg = 'we are here...'
-            speed = randint(0, 133)
-            templateData = {
-                'mesg': mesg,
-                'speed': speed
-            }
 
-            winners=["Çekiliş yapılıyor..."]
-            return render_template("cekilis.html", async_mode=socketio.async_mode, **templateData, winners=winners)
+
+
+
+
 
 
 if __name__ == '__main__':
     HOST = environ.get('0.0.0.0', 'localhost')
+
     try:
         PORT = int(environ.get('80', '5000'))
     except ValueError:
         PORT = 80
     #Sinif().sinif()
-    #app.run(HOST, PORT)
-    socketio.run(app, debug=True)
-
-
-
-##################################################################################################################
+    
+    app.run(HOST, PORT)
+    #socketio.run(app, debug=True)
